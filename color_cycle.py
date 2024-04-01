@@ -1,3 +1,4 @@
+
 from phue import Bridge
 import time
 
@@ -10,31 +11,24 @@ b = Bridge(HUE_BRIDGE_IP)
 # If the app is not registered and the button is not pressed, press the button and call connect()
 b.connect()
 
-# Get all the lights connected to the bridge
-lights = b.lights
+# Get the specific light by its name
+specific_light = b.get_light_objects('name')['Basement Accent Light ']
 
-# Select a specific light by its name or index
-light_to_control = None
-for light in lights:
-    if light.name == 'Basement Accent Light':  # Replace 'Your Light Name' with the name of your light
-        light_to_control = light
-        break
-
-# Function to fade through colors with faster transition time
-def fade_through_colors(lights, transition_time=0.5):
+# Function to fade through colors with faster transition time for a specific light
+def fade_through_colors(light, transition_time=0.5):
     hue_range = range(0, 65535, 5000)  # Range of hues to fade through
     for hue in hue_range:
-        for light in lights:
-            light.transitiontime = transition_time * 10  # Convert seconds to 1/10 seconds
-            light.hue = hue
-            light.saturation = 254  # Set saturation to maximum for vivid colors
+        light.transitiontime = transition_time * 10  # Convert seconds to 1/10 seconds
+        light.hue = hue
+        light.saturation = 254  # Set saturation to maximum for vivid colors
         time.sleep(transition_time)
 
 # Main function to cycle indefinitely
 def main():
     while True:
-        fade_through_colors(lights)
+        fade_through_colors(specific_light)
 
 # Start the main loop
 if __name__ == "__main__":
     main()
+
