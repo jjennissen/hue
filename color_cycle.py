@@ -13,8 +13,15 @@ b.connect()
 # Get all the lights connected to the bridge
 lights = b.lights
 
+# Select a specific light by its name or index
+light_to_control = None
+for light in lights:
+    if light.name == 'Basement Accent Light':  # Replace 'Your Light Name' with the name of your light
+        light_to_control = light
+        break
+
 # Function to fade through colors with faster transition time
-def fade_through_colors(lights, transition_time=0.1):
+def fade_through_colors(lights, transition_time=0.5):
     hue_range = range(0, 65535, 5000)  # Range of hues to fade through
     for hue in hue_range:
         for light in lights:
