@@ -21,6 +21,7 @@ def fade_through_colors(light, transition_time=0.5):
         light.transitiontime = transition_time * 10  # Convert seconds to 1/10 seconds
         light.hue = hue
         light.saturation = 254  # Set saturation to maximum for vivid colors
+        light.brightness = 255
         time.sleep(transition_time)
 
 # Main function to cycle indefinitely
